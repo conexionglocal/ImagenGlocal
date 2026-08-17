@@ -5,6 +5,8 @@ import ClientBody from "./ClientBody";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { LanguageProvider } from "@/contexts/language-context";
 import { generateSEOMetadata, structuredData } from "@/lib/seo";
+import { MotionProvider } from "@/providers/motion-provider";
+import { Chatbot } from "@/components/chatbot";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -24,9 +26,10 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is generated from a static, trusted object.
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>" />
+        <link rel="icon" href="/logo-dark.png" />
       </head>
       <body suppressHydrationWarning className="font-poppins antialiased">
         <ThemeProvider
@@ -36,7 +39,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
-            <ClientBody>{children}</ClientBody>
+            <MotionProvider>
+              <ClientBody>{children}</ClientBody>
+              <Chatbot />
+            </MotionProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

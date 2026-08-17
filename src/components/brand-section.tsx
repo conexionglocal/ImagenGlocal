@@ -45,7 +45,7 @@ export function BrandSection() {
   }
 
   return (
-    <section className="py-20 bg-background">
+    <section id="about" className="py-20 bg-background scroll-mt-20">
       <div className="container mx-auto px-4">
         <motion.div
           initial="hidden"

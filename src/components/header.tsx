@@ -66,6 +66,9 @@ export function Header() {
               variant="ghost"
               size="icon"
               className="lg:hidden"
+              aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? (
@@ -80,7 +83,7 @@ export function Header() {
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <div className="lg:hidden border-t bg-background/95 backdrop-blur-sm">
-            <nav className="py-4 space-y-2">
+            <nav id="mobile-navigation" className="py-4 space-y-2">
               {navItems.map((item) => (
                 <Link
                   key={item.href}

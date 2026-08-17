@@ -28,6 +28,10 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
     }
   }, [])
 
+  useEffect(() => {
+    document.documentElement.lang = language
+  }, [language])
+
   // Save language to localStorage when it changes
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)

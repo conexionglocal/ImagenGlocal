@@ -150,6 +150,7 @@ export function PlansSection() {
                         : 'bg-background border-2 border-primary text-primary hover:bg-primary hover:text-white'
                     } transition-all duration-300`}
                     size="lg"
+                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
                   >
                     {plan.cta}
                   </Button>
@@ -174,6 +175,7 @@ export function PlansSection() {
             variant="outline"
             size="lg"
             className="border-primary text-primary hover:bg-primary hover:text-white"
+            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
           >
             {t.additionalServices.consulting}
           </Button>

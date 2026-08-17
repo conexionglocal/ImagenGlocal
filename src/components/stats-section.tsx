@@ -70,6 +70,7 @@ export function StatsSection() {
             <Button
               size="lg"
               className="bg-gradient-primary hover:opacity-90 text-white border-0 px-8 py-3"
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             >
               <Brain className="w-5 h-5 mr-2" />
               {t.services.digitalPresence.cta}
@@ -106,12 +107,12 @@ export function StatsSection() {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ delay: 0.5, duration: 1 }}
-                  className="text-4xl md:text-5xl font-bold text-gradient"
+                  className="text-2xl md:text-3xl font-bold text-gradient"
                 >
-                  200%+
+                  {t.services.strategy.title}
                 </motion.div>
                 <p className="text-lg font-semibold text-foreground">
-                  {t.services.stats.growth}
+                  {t.services.strategy.items[0]}
                 </p>
               </div>
             </motion.div>
@@ -141,12 +142,12 @@ export function StatsSection() {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ delay: 0.7, duration: 1 }}
-                  className="text-4xl md:text-5xl font-bold text-gradient"
+                  className="text-2xl md:text-3xl font-bold text-gradient"
                 >
-                  95%+
+                  {t.services.transformation.title}
                 </motion.div>
                 <p className="text-lg font-semibold text-foreground">
-                  {t.services.stats.loyalty}
+                  {t.services.transformation.items[0]}
                 </p>
               </div>
             </motion.div>

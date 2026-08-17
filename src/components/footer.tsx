@@ -1,38 +1,26 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import { Facebook, Twitter, Instagram, Music2, CheckCircle, AlertCircle } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useTheme } from "next-themes"
+import { submitNetlifyForm } from "@/lib/forms"
 
 export function Footer() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const { theme } = useTheme()
+  const [email, setEmail] = useState("")
+  const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
 
   const socialLinks = [
-    {
-      icon: Facebook,
-      href: "https://www.facebook.com/share/1E4jzo55sd/",
-      label: "Facebook",
-    },
-    {
-      icon: Twitter,
-      href: "https://x.com/imagenglocal?t=_clkeYb0IbyBHTeMP8vbBg&s=09",
-      label: "Twitter",
-    },
-    {
-      icon: Instagram,
-      href: "https://www.instagram.com/imagenglocal/",
-      label: "Instagram",
-    },
-    {
-      icon: Linkedin,
-      href: "https://www.tiktok.com/@imagen.glocal?_t=ZM-8uO8oN4oZHC&_r=1",
-      label: "LinkedIn",
-    },
+    { icon: Facebook, href: "https://www.facebook.com/share/1E4jzo55sd/", label: "Facebook" },
+    { icon: Twitter, href: "https://x.com/imagenglocal?t=_clkeYb0IbyBHTeMP8vbBg&s=09", label: "X" },
+    { icon: Instagram, href: "https://www.instagram.com/imagenglocal/", label: "Instagram" },
+    { icon: Music2, href: "https://www.tiktok.com/@imagen.glocal?_t=ZM-8uO8oN4oZHC&_r=1", label: "TikTok" },
   ]
 
   const navigationLinks = [
@@ -45,138 +33,95 @@ export function Footer() {
   ]
 
   const supportLinks = [
-    { href: "#", label: "Privacy Policy" },
-    { href: "#", label: "FAQ" },
-    { href: "#", label: "Terms & Conditions" },
-    { href: "#", label: "Disclaimer" },
+    { href: "/privacy", label: language === "es" ? "Política de privacidad" : "Privacy policy" },
+    { href: "/terms", label: language === "es" ? "Términos y condiciones" : "Terms and conditions" },
+    { href: "mailto:direccion@imagen-glocal.com?subject=Pregunta%20frecuente", label: "FAQ" },
+    { href: "#contact", label: language === "es" ? "Soporte" : "Support" },
   ]
+
+  const handleNewsletter = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setNewsletterStatus("submitting")
+
+    try {
+      await submitNetlifyForm("newsletter", { email, language })
+      setNewsletterStatus("success")
+      setEmail("")
+    } catch {
+      setNewsletterStatus("error")
+    }
+  }
 
   return (
     <>
-      {/* Newsletter Section */}
-      <section id="newsletter" className="py-20 bg-gradient-secondary">
+      <section id="newsletter" className="py-20 bg-gradient-secondary scroll-mt-20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">
-            <div className="mb-4">
-              <span className="text-sm font-medium text-primary uppercase tracking-wider">
-                {t.newsletter.subtitle}
-              </span>
-            </div>
+            <span className="text-sm font-medium text-primary uppercase tracking-wider">{t.newsletter.subtitle}</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6">{t.newsletter.title}</h2>
+            <p className="text-lg text-muted-foreground mb-8">{t.newsletter.description}</p>
 
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              {t.newsletter.title}
-            </h2>
-
-            <p className="text-lg text-muted-foreground mb-8">
-              {t.newsletter.description}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder={t.newsletter.placeholder}
-                className="flex-1"
-              />
-              <Button className="bg-gradient-primary hover:opacity-90 text-white">
-                {t.newsletter.button}
-              </Button>
-            </div>
+            {newsletterStatus === "success" ? (
+              <output className="flex items-center justify-center gap-2 text-green-600 font-medium">
+                <CheckCircle className="w-5 h-5" aria-hidden="true" />
+                {language === "es" ? "Suscripción registrada. Gracias." : "Subscription registered. Thank you."}
+              </output>
+            ) : (
+              <form name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleNewsletter} className="max-w-md mx-auto">
+                <input type="hidden" name="form-name" value="newsletter" />
+                <p className="hidden"><label htmlFor="newsletter-bot-field">Do not fill this out</label><input id="newsletter-bot-field" name="bot-field" tabIndex={-1} autoComplete="off" /></p>
+                <label htmlFor="newsletter-email" className="sr-only">{t.newsletter.placeholder}</label>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Input id="newsletter-email" name="email" type="email" required autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={t.newsletter.placeholder} className="flex-1" />
+                  <Button type="submit" disabled={newsletterStatus === "submitting"} className="bg-gradient-primary hover:opacity-90 text-white">
+                    {newsletterStatus === "submitting" ? (language === "es" ? "Registrando…" : "Registering…") : t.newsletter.button}
+                  </Button>
+                </div>
+                {newsletterStatus === "error" && (
+                  <div className="flex items-center justify-center gap-2 text-sm text-destructive mt-3" role="alert">
+                    <AlertCircle className="w-4 h-4" aria-hidden="true" />
+                    {language === "es" ? "No pudimos registrar tu correo. Intenta nuevamente." : "We could not register your email. Please try again."}
+                  </div>
+                )}
+              </form>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Main Footer */}
       <footer className="bg-background border-t">
         <div className="container mx-auto px-4 py-16">
           <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
-            {/* Brand Section */}
             <div className="lg:col-span-2">
-              <Link href="/" className="inline-block mb-6">
-                <Image
-                  src={
-                    theme === "light"
-                      ? "/logo-dark.png"
-                      : "/logo-light.png"
-                  }
-                  alt="Conexión Glocal"
-                  width={200}
-                  height={68}
-                  className="h-12 w-auto header-logo"
-                />
+              <Link href="/" className="inline-block mb-6" aria-label="Conexión Glocal - inicio">
+                <Image src={theme === "light" ? "/logo-dark.png" : "/logo-light.png"} alt="Conexión Glocal" width={200} height={68} className="h-12 w-auto header-logo" />
               </Link>
-
-              <p className="text-muted-foreground mb-4 max-w-md">
-                {t.footer.description}
-              </p>
-
-              <p className="text-muted-foreground mb-6">
-                <a href="mailto:hola@imagen-glocal.com" className="hover:text-primary transition-colors">hola@imagen-glocal.com</a>
-              </p>
-
-              {/* Social Links */}
+              <p className="text-muted-foreground mb-4 max-w-md">{t.footer.description}</p>
+              <p className="text-muted-foreground mb-6"><a href="mailto:hola@imagen-glocal.com" className="hover:text-primary transition-colors">hola@imagen-glocal.com</a></p>
               <div className="flex gap-4">
                 {socialLinks.map((social) => (
-                  <Link
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
-                  >
-                    <social.icon className="w-5 h-5" />
+                  <Link key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label} className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
+                    <social.icon className="w-5 h-5" aria-hidden="true" />
                   </Link>
                 ))}
               </div>
             </div>
 
-            {/* Navigation Links */}
             <div>
-              <h3 className="font-semibold text-foreground mb-6">
-                {t.footer.navigation}
-              </h3>
-              <ul className="space-y-3">
-                {navigationLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="font-semibold text-foreground mb-6">{t.footer.navigation}</h3>
+              <ul className="space-y-3">{navigationLinks.map((link) => <li key={link.href}><Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">{link.label}</Link></li>)}</ul>
             </div>
 
-            {/* Support Links */}
             <div>
-              <h3 className="font-semibold text-foreground mb-6">
-                {t.footer.support}
-              </h3>
-              <ul className="space-y-3">
-                {supportLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="font-semibold text-foreground mb-6">{t.footer.support}</h3>
+              <ul className="space-y-3">{supportLinks.map((link) => <li key={link.href}><Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">{link.label}</Link></li>)}</ul>
             </div>
           </div>
 
-          {/* Bottom Bar */}
           <div className="border-t border-border mt-12 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-muted-foreground text-sm">
-                {t.footer.company}
-              </div>
-              <div className="text-muted-foreground text-sm">
-                {t.footer.copyright}
-              </div>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-muted-foreground text-sm">
+              <div>{t.footer.company}</div>
+              <div>Copyright © {new Date().getFullYear()} Conexión Glocal. {language === "es" ? "Todos los derechos reservados." : "All rights reserved."}</div>
             </div>
           </div>
         </div>

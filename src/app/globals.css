@@ -139,41 +139,25 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 .navbar-brand img, .header-logo {
   max-height: 52px !important;
   width: auto !important;
   object-fit: contain;
   flex-shrink: 0;
   transition: all 0.3s ease;
-}
-
-.testimonials-grid, .testimonials-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  align-items: stretch;
-}
-
-.testimonial-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 24px;
-  height: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.testimonial-user-info {
-  word-break: break-word;
-  overflow-wrap: break-word;
-}
-
-.testimonial-avatar {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  margin-right: 12px;
 }
