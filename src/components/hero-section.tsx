@@ -1,151 +1,57 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { motion } from "framer-motion"
+import { ArrowRight, Bot, Search, Sparkles } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
-import { ParallaxContainer, FloatingElement } from "@/components/parallax-container"
 
 export function HeroSection() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+
+  const capabilities = language === "es"
+    ? ["SEO y GEO", "Diseño y desarrollo", "IA aplicada"]
+    : ["SEO and GEO", "Design and development", "Applied AI"]
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center bg-gradient-primary overflow-hidden pt-32 md:pt-0">
-      {/* Background overlay */}
-      <div className="absolute inset-0 bg-black/20" />
+    <section id="home" className="relative flex min-h-screen items-center overflow-hidden bg-slate-950 pb-20 pt-32 text-white md:pt-36">
+      <div className="absolute inset-0 bg-[url('/brand/hero-bg.jpg')] bg-cover bg-center opacity-80" />
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/35" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/25" />
+      <div className="absolute -right-24 top-28 h-96 w-96 rounded-full bg-fuchsia-500/20 blur-[120px]" aria-hidden="true" />
 
-      {/* Background decorative elements */}
-      <ParallaxContainer speed={0.2} direction="right" className="absolute top-20 left-10">
-        <div className="w-32 h-32 border border-white/20 rounded-full" />
-      </ParallaxContainer>
-      <ParallaxContainer speed={0.3} direction="left" className="absolute bottom-32 right-16">
-        <div className="w-24 h-24 border border-white/10 rounded-full" />
-      </ParallaxContainer>
-      <ParallaxContainer speed={0.1} direction="up" className="absolute top-1/2 right-1/4">
-        <div className="w-16 h-16 border border-white/15 rounded-full" />
-      </ParallaxContainer>
+      <div className="container relative z-10 mx-auto px-4">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_.92fr]">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+            <p className="mb-6 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.22em] text-fuchsia-300"><Sparkles className="h-4 w-4" aria-hidden="true" />{t.hero.agency}</p>
+            <h1 className="max-w-4xl text-4xl font-bold leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl">{t.hero.title}</h1>
+            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-slate-200 md:text-xl">{t.hero.description}</p>
+            <p className="mt-6 text-base font-semibold text-white md:text-lg">{t.hero.subtitle}</p>
 
-      {/* Content Container */}
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-white"
-          >
-            <div className="mb-4">
-              <span className="text-sm font-medium text-white/80 uppercase tracking-wider">
-                {t.hero.agency}
-              </span>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {capabilities.map((capability) => <span key={capability} className="rounded-full border border-white/15 bg-white/[0.08] px-4 py-2 text-sm text-slate-100 backdrop-blur">{capability}</span>)}
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              {t.hero.title}
-            </h1>
-
-            <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed">
-              {t.hero.description}
-            </p>
-
-            <div className="mb-8">
-              <p className="text-lg font-semibold text-white">
-                {t.hero.subtitle}
-              </p>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  const el = document.getElementById('brand-dna')
-                  el?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="bg-white text-purple-primary hover:bg-white/90 px-8 py-3 rounded-lg font-semibold transition-all"
-              >
-                {t.brandDna.submitButton}
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  const el = document.getElementById('contact')
-                  el?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="border-2 border-white text-white hover:bg-white hover:text-purple-primary px-8 py-3 rounded-lg font-semibold transition-all"
-              >
-                {t.additionalServices.consulting}
-              </motion.button>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <button type="button" onClick={() => document.getElementById("brand-dna")?.scrollIntoView({ behavior: "smooth" })} className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 font-bold text-slate-950 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-fuchsia-500/20">{t.brandDna.submitButton}<ArrowRight className="h-4 w-4" aria-hidden="true" /></button>
+              <Link href="/portfolio" className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 py-3.5 font-semibold backdrop-blur transition hover:border-fuchsia-300/60 hover:bg-white/15">{language === "es" ? "Ver proyectos" : "View projects"}</Link>
             </div>
           </motion.div>
 
-          {/* Right Content - Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <ParallaxContainer speed={0.3} direction="up" className="relative">
-              <Image
-                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80"
-                alt="Team collaboration"
-                width={600}
-                height={800}
-                className="rounded-2xl shadow-2xl w-full h-auto"
-                priority
-              />
-
-              {/* Floating elements */}
-              <FloatingElement
-                duration={4}
-                amplitude={15}
-                className="absolute -top-4 -right-4"
-              >
-                <div className="w-20 h-20 bg-white/20 rounded-full backdrop-blur-sm" />
-              </FloatingElement>
-              <FloatingElement
-                duration={3}
-                delay={1}
-                amplitude={12}
-                className="absolute -bottom-4 -left-4"
-              >
-                <div className="w-16 h-16 bg-white/20 rounded-full backdrop-blur-sm" />
-              </FloatingElement>
-
-              {/* Additional floating elements */}
-              <FloatingElement
-                duration={5}
-                delay={2}
-                amplitude={8}
-                className="absolute top-1/2 -left-8"
-              >
-                <div className="w-12 h-12 bg-purple-500/30 rounded-full backdrop-blur-sm" />
-              </FloatingElement>
-
-              {/* Gradient overlay for depth */}
-              <div className="absolute inset-0 bg-gradient-to-t from-purple-500/10 via-transparent to-blue-500/10 rounded-2xl pointer-events-none" />
-            </ParallaxContainer>
+          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.75, delay: 0.15 }} className="relative mx-auto w-full max-w-xl">
+            <div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-fuchsia-500/25 to-violet-500/5 blur-2xl" aria-hidden="true" />
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-slate-950/60 p-3 shadow-2xl shadow-black/40 backdrop-blur-xl">
+              <div className="mb-3 flex items-center gap-1.5 px-2"><span className="h-2.5 w-2.5 rounded-full bg-rose-400" /><span className="h-2.5 w-2.5 rounded-full bg-amber-300" /><span className="h-2.5 w-2.5 rounded-full bg-emerald-400" /></div>
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
+                <Image src="/brand/technology.webp" alt={language === "es" ? "Estrategia digital y tecnología para marcas" : "Digital strategy and technology for brands"} fill priority sizes="(max-width: 1024px) 100vw, 46vw" className="object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+              </div>
+            </div>
+            <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY }} className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border border-white/15 bg-slate-950/85 px-4 py-3 shadow-xl backdrop-blur-xl sm:-left-8"><Search className="h-5 w-5 text-fuchsia-300" aria-hidden="true" /><div><p className="text-xs text-slate-400">SEO + GEO</p><p className="text-sm font-bold">{language === "es" ? "Visibilidad con intención" : "Intent-driven visibility"}</p></div></motion.div>
+            <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 4.5, repeat: Number.POSITIVE_INFINITY, delay: 0.5 }} className="absolute -right-3 top-8 flex items-center gap-3 rounded-2xl border border-white/15 bg-slate-950/85 px-4 py-3 shadow-xl backdrop-blur-xl sm:-right-8"><Bot className="h-5 w-5 text-cyan-300" aria-hidden="true" /><div><p className="text-xs text-slate-400">IA</p><p className="text-sm font-bold">{language === "es" ? "Experiencias útiles" : "Useful experiences"}</p></div></motion.div>
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
-      >
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, delay: 0.5 }}
-            className="w-1 h-3 bg-white rounded-full mt-2"
-          />
-        </div>
-      </motion.div>
     </section>
   )
 }

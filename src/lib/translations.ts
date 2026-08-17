@@ -4,6 +4,7 @@ export interface Translations {
     services: string;
     about: string;
     plans: string;
+    portfolio: string;
     creativeProcess: string;
     contact: string;
     language: string;
@@ -222,15 +223,16 @@ export const translations: Record<'en' | 'es', Translations> = {
       services: 'Services',
       about: 'About Us',
       plans: 'Plans',
+      portfolio: 'Portfolio',
       creativeProcess: 'Creative Process',
       contact: 'Contact',
       language: 'Español'
     },
     hero: {
       agency: 'Conexión Glocal Agency',
-      title: 'We Are the Bridge Between Global and Local',
-      description: 'We believe every brand deserves a strategy as unique as the market it aims to reach. We\'re passionate about creating ideas that transcend boundaries and adapt with authenticity—because we know local success isn\'t just possible; it\'s our purpose.',
-      subtitle: 'We transform ideas into experiences that make a difference.'
+      title: 'Make Your Brand Found, Understood, and Chosen',
+      description: 'We combine strategy, design, SEO/GEO, technology, and AI to turn your digital presence into a clear path toward new opportunities.',
+      subtitle: 'Global vision, local relevance, measurable decisions.'
     },
     brand: {
       title: 'We Shape Your Brand',
@@ -414,8 +416,8 @@ export const translations: Record<'en' | 'es', Translations> = {
     },
     brandDna: {
       badge: 'Free Brand Diagnostic',
-      title: 'Request Your Brand DNA Diagnostic',
-      description: 'Share your website and contact details. Our team will review your visual identity and tone of voice and contact you with the next steps.',
+      title: 'Discover What Is Holding Your Brand Back',
+      description: 'Request a complimentary Brand DNA review. We will assess positioning, identity, digital experience, SEO/GEO, and conversion opportunities to define the right next step.',
       formUrlLabel: 'Your Website URL',
       formUrlPlaceholder: 'https://yourcompany.com',
       formNameLabel: 'Name',
@@ -486,15 +488,16 @@ export const translations: Record<'en' | 'es', Translations> = {
       services: 'Servicios',
       about: 'Nosotros',
       plans: 'Planes',
+      portfolio: 'Portafolio',
       creativeProcess: 'Proceso Creativo',
       contact: 'Contacto',
       language: 'English'
     },
     hero: {
       agency: 'Agencia Conexión Glocal',
-      title: 'Somos el puente entre lo Global y lo Local',
-      description: 'Creemos que cada marca merece una estrategia tan única como el mercado al que se dirige. Nos apasiona crear ideas que rompan fronteras y se adapten con autenticidad, porque sabemos que el éxito local no es solo posible: es nuestro propósito.',
-      subtitle: 'Transformamos ideas en experiencias que marcan la diferencia'
+      title: 'Haz que tu marca sea encontrada, entendida y elegida',
+      description: 'Unimos estrategia, diseño, SEO/GEO, tecnología e inteligencia artificial para convertir tu presencia digital en un camino claro hacia nuevas oportunidades.',
+      subtitle: 'Visión global, relevancia local y decisiones medibles.'
     },
     brand: {
       title: 'Ideamos tu Marca',
@@ -678,8 +681,8 @@ export const translations: Record<'en' | 'es', Translations> = {
     },
     brandDna: {
       badge: 'Diagnóstico de Marca Gratuito',
-      title: 'Solicita el Diagnóstico de ADN de tu Marca',
-      description: 'Comparte tu sitio web y datos de contacto. Nuestro equipo revisará tu identidad visual y tono de voz para contactarte con los siguientes pasos.',
+      title: 'Descubre qué está frenando a tu marca',
+      description: 'Solicita una revisión inicial de ADN de Marca. Analizaremos posicionamiento, identidad, experiencia digital, SEO/GEO y oportunidades de conversión para definir el siguiente paso correcto.',
       formUrlLabel: 'URL de tu sitio web',
       formUrlPlaceholder: 'https://tuempresa.com',
       formNameLabel: 'Nombre',

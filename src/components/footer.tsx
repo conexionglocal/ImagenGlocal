@@ -7,12 +7,12 @@ import { Facebook, Twitter, Instagram, Music2, CheckCircle, AlertCircle } from "
 import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useTheme } from "next-themes"
 import { submitNetlifyForm } from "@/lib/forms"
+import { usePathname } from "next/navigation"
 
 export function Footer() {
   const { t, language } = useLanguage()
-  const { theme } = useTheme()
+  const pathname = usePathname()
   const [email, setEmail] = useState("")
   const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
 
@@ -24,19 +24,20 @@ export function Footer() {
   ]
 
   const navigationLinks = [
-    { href: "#home", label: t.nav.home },
-    { href: "#services", label: t.nav.services },
-    { href: "#about", label: t.nav.about },
-    { href: "#plans", label: t.nav.plans },
-    { href: "#creative-process", label: t.nav.creativeProcess },
-    { href: "#contact", label: t.nav.contact },
+    { href: pathname === "/" ? "#home" : "/#home", label: t.nav.home },
+    { href: pathname === "/" ? "#services" : "/#services", label: t.nav.services },
+    { href: pathname === "/" ? "#about" : "/#about", label: t.nav.about },
+    { href: "/portfolio", label: t.nav.portfolio },
+    { href: pathname === "/" ? "#plans" : "/#plans", label: t.nav.plans },
+    { href: pathname === "/" ? "#creative-process" : "/#creative-process", label: t.nav.creativeProcess },
+    { href: pathname === "/" ? "#contact" : "/#contact", label: t.nav.contact },
   ]
 
   const supportLinks = [
     { href: "/privacy", label: language === "es" ? "Política de privacidad" : "Privacy policy" },
     { href: "/terms", label: language === "es" ? "Términos y condiciones" : "Terms and conditions" },
-    { href: "mailto:direccion@imagen-glocal.com?subject=Pregunta%20frecuente", label: "FAQ" },
-    { href: "#contact", label: language === "es" ? "Soporte" : "Support" },
+    { href: "mailto:info@imagen-glocal.com?subject=Consulta%20desde%20el%20sitio", label: "FAQ" },
+    { href: pathname === "/" ? "#contact" : "/#contact", label: language === "es" ? "Soporte" : "Support" },
   ]
 
   const handleNewsletter = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +45,11 @@ export function Footer() {
     setNewsletterStatus("submitting")
 
     try {
-      await submitNetlifyForm("newsletter", { email, language })
+      await submitNetlifyForm("newsletter", {
+        email,
+        language,
+        subject: "Nueva suscripción — Newsletter Glocal",
+      })
       setNewsletterStatus("success")
       setEmail("")
     } catch {
@@ -69,6 +74,7 @@ export function Footer() {
             ) : (
               <form name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleNewsletter} className="max-w-md mx-auto">
                 <input type="hidden" name="form-name" value="newsletter" />
+                <input type="hidden" name="subject" data-remove-prefix value="Nueva suscripción — Newsletter Glocal" />
                 <p className="hidden"><label htmlFor="newsletter-bot-field">Do not fill this out</label><input id="newsletter-bot-field" name="bot-field" tabIndex={-1} autoComplete="off" /></p>
                 <label htmlFor="newsletter-email" className="sr-only">{t.newsletter.placeholder}</label>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -94,10 +100,12 @@ export function Footer() {
           <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
             <div className="lg:col-span-2">
               <Link href="/" className="inline-block mb-6" aria-label="Conexión Glocal - inicio">
-                <Image src={theme === "light" ? "/logo-dark.png" : "/logo-light.png"} alt="Conexión Glocal" width={200} height={68} className="h-12 w-auto header-logo" />
+                <Image src="/logo-dark.png" alt="Conexión Glocal" width={187} height={73} className="h-16 w-auto dark:hidden" />
+                <Image src="/logo-light.png" alt="" aria-hidden="true" width={187} height={73} className="hidden h-16 w-auto dark:block" />
               </Link>
               <p className="text-muted-foreground mb-4 max-w-md">{t.footer.description}</p>
-              <p className="text-muted-foreground mb-6"><a href="mailto:hola@imagen-glocal.com" className="hover:text-primary transition-colors">hola@imagen-glocal.com</a></p>
+              <p className="mb-2 text-muted-foreground"><a href="mailto:info@imagen-glocal.com" className="transition-colors hover:text-primary">info@imagen-glocal.com</a></p>
+              <p className="mb-6 text-muted-foreground"><a href="https://api.whatsapp.com/send?phone=523319627565&text=Hola%2C%20vengo%20del%20sitio%20de%20Conexi%C3%B3n%20Glocal" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-primary">WhatsApp: +52 33 1962 7565</a></p>
               <div className="flex gap-4">
                 {socialLinks.map((social) => (
                   <Link key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label} className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
