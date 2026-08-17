@@ -24,7 +24,7 @@ function fallbackReply(message: string, language: "es" | "en") {
   const normalized = message.toLowerCase()
   const isSpanish = language === "es"
 
-  if (/precio|costo|cotiz|price|cost|quote/.test(normalized)) {
+  if (/precio|costo|cotiz|presupuesto|propuesta|price|cost|quote|budget|proposal/.test(normalized)) {
     return isSpanish
       ? "Preparamos propuestas según alcance, tiempos e integraciones. Cuéntame qué necesitas o usa el formulario de contacto para solicitar una cotización."
       : "We prepare proposals based on scope, timing, and integrations. Tell me what you need or use the contact form to request a quote."
