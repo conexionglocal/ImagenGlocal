@@ -6,7 +6,7 @@ import { StatsSection } from "@/components/stats-section"
 import { InnovationSection } from "@/components/innovation-section"
 import { PlansSection } from "@/components/plans-section"
 import { AdditionalServicesSection } from "@/components/additional-services-section"
-import { TestimonialsSection } from "@/components/testimonials-section"
+import { ProcessSection } from "@/components/process-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { ScrollProgress } from "@/components/parallax-container"
@@ -26,7 +26,7 @@ export default function Home() {
         <InnovationSection />
         <PlansSection />
         <AdditionalServicesSection />
-        <TestimonialsSection />
+        <ProcessSection />
         <ContactSection />
       </main>
       <Footer />

@@ -413,9 +413,9 @@ export const translations: Record<'en' | 'es', Translations> = {
       button: 'Subscribe'
     },
     brandDna: {
-      badge: 'AI Lead Magnet',
-      title: 'Analyze Your Brand\'s DNA in Real Time',
-      description: 'Enter your website link and our AI engine will analyze your visual identity and tone of voice to send you a free diagnostic.',
+      badge: 'Free Brand Diagnostic',
+      title: 'Request Your Brand DNA Diagnostic',
+      description: 'Share your website and contact details. Our team will review your visual identity and tone of voice and contact you with the next steps.',
       formUrlLabel: 'Your Website URL',
       formUrlPlaceholder: 'https://yourcompany.com',
       formNameLabel: 'Name',
@@ -431,9 +431,9 @@ export const translations: Record<'en' | 'es', Translations> = {
         'Generating DNA report...'
       ],
       processing: 'Processing',
-      successTitle: 'Analysis Completed!',
-      successDescription: 'We have sent the detailed report of your brand\'s DNA to the provided contact',
-      analyzeAnother: 'Analyze another brand'
+      successTitle: 'Request Received!',
+      successDescription: 'We registered your request and will contact you to prepare the diagnostic.',
+      analyzeAnother: 'Request another diagnostic'
     },
     contact: {
       title: 'Ready to Transform Your Brand?',
@@ -451,8 +451,8 @@ export const translations: Record<'en' | 'es', Translations> = {
       messagePlaceholder: 'Tell us about your project...',
       submitButton: 'Send Message',
       submitting: 'Sending...',
-      successTitle: 'Message Sent!',
-      successDescription: 'Your data has been sent to direccion@imagen-glocal.com and we have redirected you to WhatsApp. We will reply shortly.',
+      successTitle: 'Request Registered!',
+      successDescription: 'We registered your information. You can continue the conversation on WhatsApp or wait for our response.',
       contactInfoTitle: 'Contact Information',
       whatsappTitle: 'Prefer WhatsApp?',
       whatsappSubtitle: 'Immediate response',
@@ -677,9 +677,9 @@ export const translations: Record<'en' | 'es', Translations> = {
       button: 'Suscribirse'
     },
     brandDna: {
-      badge: 'Lead Magnet IA',
-      title: 'Analiza el ADN de tu Marca en Tiempo Real',
-      description: 'Ingresa el enlace de tu sitio web y nuestro motor de IA analizará tu identidad visual y tono de voz para enviarte un diagnóstico gratuito.',
+      badge: 'Diagnóstico de Marca Gratuito',
+      title: 'Solicita el Diagnóstico de ADN de tu Marca',
+      description: 'Comparte tu sitio web y datos de contacto. Nuestro equipo revisará tu identidad visual y tono de voz para contactarte con los siguientes pasos.',
       formUrlLabel: 'URL de tu sitio web',
       formUrlPlaceholder: 'https://tuempresa.com',
       formNameLabel: 'Nombre',
@@ -695,9 +695,9 @@ export const translations: Record<'en' | 'es', Translations> = {
         'Generando reporte de ADN...'
       ],
       processing: 'Procesando',
-      successTitle: '¡Análisis Completado!',
-      successDescription: 'Hemos enviado el reporte detallado del ADN de tu marca al contacto proporcionado',
-      analyzeAnother: 'Analizar otra marca'
+      successTitle: '¡Solicitud recibida!',
+      successDescription: 'Registramos tu solicitud y te contactaremos para preparar el diagnóstico.',
+      analyzeAnother: 'Solicitar otro diagnóstico'
     },
     contact: {
       title: '¿Listo para transformar tu marca?',
@@ -715,8 +715,8 @@ export const translations: Record<'en' | 'es', Translations> = {
       messagePlaceholder: 'Cuéntanos sobre tu proyecto...',
       submitButton: 'Enviar mensaje',
       submitting: 'Enviando...',
-      successTitle: '¡Mensaje enviado!',
-      successDescription: 'Tus datos han sido enviados a direccion@imagen-glocal.com y te hemos redirigido a WhatsApp. Responderemos pronto.',
+      successTitle: '¡Solicitud registrada!',
+      successDescription: 'Registramos tus datos. Puedes continuar la conversación por WhatsApp o esperar nuestra respuesta.',
       contactInfoTitle: 'Información de contacto',
       whatsappTitle: '¿Prefieres WhatsApp?',
       whatsappSubtitle: 'Respuesta inmediata',
