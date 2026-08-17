@@ -32,7 +32,11 @@ export function ContactSection() {
     setSubmitError("")
 
     try {
-      await submitNetlifyForm("contact", { ...formData, language })
+      await submitNetlifyForm("contact", {
+        ...formData,
+        language,
+        subject: "Nuevo lead — Formulario de contacto",
+      })
 
       const whatsappMessage = language === "es"
         ? `¡Hola! Me contacto desde el sitio web de Conexión Glocal.\n\nNombre: ${formData.name}\nEmail: ${formData.email}\nTeléfono: ${formData.phone || "No indicado"}\nServicio: ${formData.service || "Por definir"}\n\nMensaje:\n${formData.message}`
@@ -71,8 +75,8 @@ export function ContactSection() {
     {
       icon: Mail,
       title: t.contact.emailLabel.replace(" *", ""),
-      value: "direccion@imagen-glocal.com | gdl@imagen-glocal.com",
-      link: "mailto:direccion@imagen-glocal.com",
+      value: "info@imagen-glocal.com",
+      link: "mailto:info@imagen-glocal.com",
     },
     {
       icon: MapPin,
@@ -140,6 +144,7 @@ export function ContactSection() {
                 ) : (
                   <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleSubmit} className="space-y-6">
                     <input type="hidden" name="form-name" value="contact" />
+                    <input type="hidden" name="subject" data-remove-prefix value="Nuevo lead — Formulario de contacto" />
                     <p className="hidden">
                       <label htmlFor="contact-bot-field">Do not fill this out</label>
                       <input id="contact-bot-field" name="bot-field" tabIndex={-1} autoComplete="off" />
