@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://imagenglocal.netlify.app').replace(/\/$/, '')
+
 export interface SEOConfig {
   title: string
   description: string
@@ -28,7 +30,11 @@ export const seoConfig: Record<'es' | 'en', SEOConfig> = {
       'consultoría digital',
       'imagen glocal',
       'marketing local',
-      'estrategia digital'
+      'estrategia digital',
+      'GEO marketing',
+      'optimización para motores generativos',
+      'agencia SEO Cancún',
+      'agencia SEO Guadalajara'
     ],
     ogTitle: 'Conexión Glocal - Transformamos tu marca con estrategias digitales innovadoras',
     ogDescription: 'Agencia de marketing digital especializada en conectar marcas con audiencias locales y globales. Estrategias personalizadas que generan resultados.',
@@ -52,7 +58,10 @@ export const seoConfig: Record<'es' | 'en', SEOConfig> = {
       'digital consulting',
       'imagen glocal',
       'local marketing',
-      'digital strategy'
+      'digital strategy',
+      'generative engine optimization',
+      'SEO agency Mexico',
+      'AI search optimization'
     ],
     ogTitle: 'Conexión Glocal - Transform your brand with innovative digital strategies',
     ogDescription: 'Digital marketing agency specialized in connecting brands with local and global audiences. Personalized strategies that generate results.',
@@ -79,14 +88,14 @@ export function generateSEOMetadata(language: 'es' | 'en' = 'es', page?: string)
       address: false,
       telephone: false,
     },
-    metadataBase: new URL('https://imagenglocal.netlify.app'),
+    metadataBase: new URL(siteUrl),
     alternates: {
-      canonical: `https://imagenglocal.netlify.app${page ? `/${page}` : ''}`,
+      canonical: `${siteUrl}${page ? `/${page}` : ''}`,
     },
     openGraph: {
       title: config.ogTitle || pageTitle,
       description: config.ogDescription || config.description,
-      url: `https://imagenglocal.netlify.app${page ? `/${page}` : ''}`,
+      url: `${siteUrl}${page ? `/${page}` : ''}`,
       siteName: 'Conexión Glocal',
       locale: language === 'es' ? 'es_MX' : 'en_US',
       type: 'website',
@@ -97,6 +106,10 @@ export function generateSEOMetadata(language: 'es' | 'en' = 'es', page?: string)
       description: config.twitterDescription || config.description,
       creator: '@imagenglocal',
       site: '@imagenglocal',
+    },
+    icons: {
+      icon: '/favicon.png',
+      apple: '/favicon.png',
     },
     robots: {
       index: true,
@@ -117,8 +130,8 @@ export const structuredData = {
   '@type': 'Organization',
   name: 'Conexión Glocal',
   alternateName: 'Conexión Glocal Agency',
-  url: 'https://imagenglocal.netlify.app',
-  logo: 'https://imagenglocal.netlify.app/logo-dark.png',
+  url: siteUrl,
+  logo: `${siteUrl}/logo-dark.png`,
   description: 'Agencia de marketing digital especializada en estrategias glocales',
   address: [
     {
@@ -140,6 +153,8 @@ export const structuredData = {
     contactType: 'customer service',
     availableLanguage: ['Spanish', 'English'],
   },
+  email: 'info@imagen-glocal.com',
+  areaServed: ['México', 'Cancún', 'Guadalajara'],
   sameAs: [
     'https://www.facebook.com/share/1E4jzo55sd/',
     'https://x.com/imagenglocal',
@@ -147,6 +162,7 @@ export const structuredData = {
     'https://www.tiktok.com/@imagen.glocal',
   ],
   industry: 'Digital Marketing',
+  knowsAbout: ['SEO', 'Generative Engine Optimization', 'Brand Strategy', 'UX/UI Design', 'Web Development', 'E-commerce', 'Artificial Intelligence'],
   services: [
     'Digital Marketing',
     'SEO',
