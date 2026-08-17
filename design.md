@@ -108,7 +108,7 @@ El sitio incluye:
 - `/robots.txt` y `/sitemap.xml`;
 - logo estructurado válido;
 - rutas legales `/privacy` y `/terms`;
-- encabezados de seguridad definidos en `netlify.toml`.
+- encabezados de seguridad definidos en `next.config.js` para que también alcancen las respuestas del runtime de Next en Netlify.
 
 El canonical actual usa `https://imagenglocal.netlify.app`. Debe cambiarse en `src/lib/seo.ts`, `robots.ts` y `sitemap.ts` si se conecta un dominio de producción diferente. La localización inglesa todavía es del lado del cliente: una mejora futura es crear rutas indexables `/es` y `/en` con metadata y `hreflang` propios.
 
