@@ -8,48 +8,70 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 export function AdditionalServicesSection() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+
+  const descriptions = language === "es"
+    ? [
+        "Potenciamos tu marca en plataformas digitales con estrategia y contenido relevante.",
+        "Diseñamos experiencias web claras, rápidas y orientadas a conversión.",
+        "Desarrollamos estrategias de comunicación que fortalecen tu mensaje y reputación.",
+        "Creamos contenido audiovisual profesional para contar tu historia con impacto.",
+        "Automatizamos atención y calificación de oportunidades con asistentes conversacionales.",
+        "Construimos experiencias de comercio electrónico enfocadas en ventas y operación.",
+        "Producimos comerciales y podcasts que elevan tu presencia de marca.",
+        "Diseñamos identidades de marca coherentes, memorables y fáciles de aplicar.",
+      ]
+    : [
+        "We grow your brand across digital platforms with strategy and relevant content.",
+        "We design clear, fast web experiences focused on conversion.",
+        "We build communication strategies that strengthen your message and reputation.",
+        "We create professional audiovisual content that tells your story with impact.",
+        "We automate support and lead qualification with conversational assistants.",
+        "We build e-commerce experiences focused on sales and operations.",
+        "We produce commercials and podcasts that elevate your brand presence.",
+        "We design coherent, memorable brand identities that are easy to apply.",
+      ]
 
   const services = [
     {
       title: t.additionalServices.socialMedia.title,
       image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
-      description: "Potenciamos tu marca en todas las plataformas digitales con estrategias creativas y contenido que conecta.",
+      description: descriptions[0],
     },
     {
       title: t.additionalServices.webDesign.title,
       image: "https://images.unsplash.com/photo-1547658719-da2b51159128?w=800&q=80",
-      description: "Diseñamos experiencias web que convierten visitantes en clientes con tecnología de vanguardia.",
+      description: descriptions[1],
     },
     {
       title: t.additionalServices.communication.title,
       image: "https://images.unsplash.com/photo-1552581234-26160f608093?w=800&q=80",
-      description: "Desarrollamos estrategias de comunicación integral que amplifican tu mensaje y fortalecen tu marca.",
+      description: descriptions[2],
     },
     {
       title: t.additionalServices.audiovisual.title,
       image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&q=80",
-      description: "Creamos contenido audiovisual de alta calidad que cuenta tu historia de manera impactante.",
+      description: descriptions[3],
     },
     {
       title: t.additionalServices.chatbot.title,
       image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80",
-      description: "Automatización inteligente con IA para mejorar la experiencia de tus clientes 24/7.",
+      description: descriptions[4],
     },
     {
       title: t.additionalServices.ecommerce.title,
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
-      description: "Soluciones completas de comercio electrónico que maximizan tus ventas online.",
+      description: descriptions[5],
     },
     {
       title: t.additionalServices.production.title,
       image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
-      description: "Producción profesional de comerciales y podcasts que elevan tu presencia mediática.",
+      description: descriptions[6],
     },
     {
       title: t.additionalServices.branding.title,
       image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
-      description: "Desarrollamos identidades de marca memorables que conectan emocionalmente con tu audiencia.",
+      description: descriptions[7],
     },
     {
       title: t.additionalServices.brandDna.title,
@@ -83,7 +105,7 @@ export function AdditionalServicesSection() {
   }
 
   return (
-    <section className="py-20 bg-gradient-secondary">
+    <section id="additional-services" className="py-20 bg-gradient-secondary scroll-mt-20">
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div

@@ -6,10 +6,8 @@ export interface SEOConfig {
   keywords: string[]
   ogTitle?: string
   ogDescription?: string
-  ogImage?: string
   twitterTitle?: string
   twitterDescription?: string
-  canonical?: string
   language: 'es' | 'en'
 }
 
@@ -34,7 +32,6 @@ export const seoConfig: Record<'es' | 'en', SEOConfig> = {
     ],
     ogTitle: 'Conexión Glocal - Transformamos tu marca con estrategias digitales innovadoras',
     ogDescription: 'Agencia de marketing digital especializada en conectar marcas con audiencias locales y globales. Estrategias personalizadas que generan resultados.',
-    ogImage: 'https://imagenglocal.netlify.app/og-image-es.jpg',
     twitterTitle: 'Conexión Glocal - Agencia de Marketing Digital',
     twitterDescription: 'Transformamos ideas en experiencias digitales que marcan la diferencia',
     language: 'es'
@@ -59,7 +56,6 @@ export const seoConfig: Record<'es' | 'en', SEOConfig> = {
     ],
     ogTitle: 'Conexión Glocal - Transform your brand with innovative digital strategies',
     ogDescription: 'Digital marketing agency specialized in connecting brands with local and global audiences. Personalized strategies that generate results.',
-    ogImage: 'https://imagenglocal.netlify.app/og-image-en.jpg',
     twitterTitle: 'Conexión Glocal - Digital Marketing Agency',
     twitterDescription: 'We transform ideas into digital experiences that make a difference',
     language: 'en'
@@ -86,24 +82,12 @@ export function generateSEOMetadata(language: 'es' | 'en' = 'es', page?: string)
     metadataBase: new URL('https://imagenglocal.netlify.app'),
     alternates: {
       canonical: `https://imagenglocal.netlify.app${page ? `/${page}` : ''}`,
-      languages: {
-        'es': 'https://imagenglocal.netlify.app',
-        'en': 'https://paginamuestra.3.isparkcorp.com',
-      },
     },
     openGraph: {
       title: config.ogTitle || pageTitle,
       description: config.ogDescription || config.description,
       url: `https://imagenglocal.netlify.app${page ? `/${page}` : ''}`,
       siteName: 'Conexión Glocal',
-      images: [
-        {
-          url: config.ogImage || 'https://imagenglocal.netlify.app/og-image-default.jpg',
-          width: 1200,
-          height: 630,
-          alt: config.ogTitle || pageTitle,
-        },
-      ],
       locale: language === 'es' ? 'es_MX' : 'en_US',
       type: 'website',
     },
@@ -111,7 +95,6 @@ export function generateSEOMetadata(language: 'es' | 'en' = 'es', page?: string)
       card: 'summary_large_image',
       title: config.twitterTitle || pageTitle,
       description: config.twitterDescription || config.description,
-      images: [config.ogImage || 'https://imagenglocal.netlify.app/og-image-default.jpg'],
       creator: '@imagenglocal',
       site: '@imagenglocal',
     },
@@ -126,12 +109,6 @@ export function generateSEOMetadata(language: 'es' | 'en' = 'es', page?: string)
         'max-snippet': -1,
       },
     },
-    verification: {
-      google: 'google-site-verification-code',
-      other: {
-        'facebook-domain-verification': 'facebook-verification-code',
-      },
-    },
   }
 }
 
@@ -141,15 +118,22 @@ export const structuredData = {
   name: 'Conexión Glocal',
   alternateName: 'Conexión Glocal Agency',
   url: 'https://imagenglocal.netlify.app',
-  logo: 'https://imagenglocal.netlify.app/logo.png',
+  logo: 'https://imagenglocal.netlify.app/logo-dark.png',
   description: 'Agencia de marketing digital especializada en estrategias glocales',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Guadalajara',
-    addressLocality: 'Guadalajara',
-    addressRegion: 'Jalisco',
-    addressCountry: 'MX',
-  },
+  address: [
+    {
+      '@type': 'PostalAddress',
+      addressLocality: 'Cancún',
+      addressRegion: 'Quintana Roo',
+      addressCountry: 'MX',
+    },
+    {
+      '@type': 'PostalAddress',
+      addressLocality: 'Guadalajara',
+      addressRegion: 'Jalisco',
+      addressCountry: 'MX',
+    },
+  ],
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: '+52-998-920-3002',
@@ -162,8 +146,6 @@ export const structuredData = {
     'https://www.instagram.com/imagenglocal/',
     'https://www.tiktok.com/@imagen.glocal',
   ],
-  foundingDate: '2020',
-  numberOfEmployees: '10-50',
   industry: 'Digital Marketing',
   services: [
     'Digital Marketing',

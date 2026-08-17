@@ -73,6 +73,7 @@ export function InnovationSection() {
             <Button
               size="lg"
               className="bg-white text-primary hover:bg-white/90 px-8 py-4 text-lg font-semibold group"
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             >
               <Globe className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
               {t.innovation.cta}
