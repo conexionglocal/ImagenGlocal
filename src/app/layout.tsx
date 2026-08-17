@@ -29,7 +29,8 @@ export default function RootLayout({
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is generated from a static, trusted object.
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <link rel="icon" href="/logo-dark.png" />
+        <link rel="icon" href="/favicon.png" sizes="123x123" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
       </head>
       <body suppressHydrationWarning className="font-poppins antialiased">
         <ThemeProvider

@@ -37,9 +37,10 @@ Principios del producto:
 7. Mensaje de innovación.
 8. Planes comerciales.
 9. Servicios adicionales.
-10. Proceso de trabajo.
-11. Contacto.
-12. Newsletter y footer.
+10. Portafolio destacado.
+11. Proceso de trabajo.
+12. Contacto.
+13. Newsletter y footer.
 
 `src/app/layout.tsx` añade proveedores globales, datos estructurados y el chatbot accesible. Las rutas `/privacy` y `/terms` comparten el componente `LegalPage`.
 
@@ -56,7 +57,7 @@ La dirección visual es moderna, tecnológica y optimista: superficies limpias, 
 | `--foreground` | `240 10% 3.9%` | Texto principal |
 | `--radius` | `0.75rem` | Radio base de componentes |
 
-La familia principal es Poppins, cargada con `next/font/google`. El layout usa un contenedor centrado, grillas responsivas y un encabezado fijo de 64 px. Toda animación global respeta reducción de movimiento mediante `MotionProvider` y reglas CSS complementarias.
+La familia principal es Poppins, cargada con `next/font/google`. El layout usa un contenedor centrado, grillas responsivas y un encabezado fijo de 80 px. Los logotipos fueron recortados para eliminar espacio transparente y mantener una presencia visual consistente sin distorsión. Toda animación global respeta reducción de movimiento mediante `MotionProvider` y reglas CSS complementarias.
 
 ## Componentes y estado funcional
 
@@ -74,16 +75,20 @@ La familia principal es Poppins, cargada con `next/font/google`. El layout usa u
 | `ContactSection` | Captura el lead y ofrece WhatsApp | Envía a Netlify Forms y reporta el resultado real |
 | `Footer` | Newsletter, navegación, redes y legales | Formulario y enlaces funcionales |
 | `Chatbot` | Atención inicial y calificación | Funcional con IA opcional y respaldo local |
+| `PortfolioPreview` | Muestra proyectos destacados en la página principal | Funcional y bilingüe |
+| `PortfolioLanding` | Landing `/portfolio` con filtros SEO, GEO, UX, comercio e IA | Funcional y bilingüe |
 
 ## Conversión y formularios
 
 Netlify detecta los formularios en `public/__forms.html`. Los componentes React publican a `/__forms.html` con `application/x-www-form-urlencoded`, un campo `form-name` y honeypot. Los nombres y campos de los tres formularios deben permanecer sincronizados:
 
-- `brand-dna`: URL, nombre, email e idioma.
+- `brand-dna`: URL, nombre, email, teléfono opcional e idioma.
 - `contact`: nombre, email, teléfono, servicio, mensaje e idioma.
 - `newsletter`: email e idioma.
 
 La interfaz solo muestra éxito después de una respuesta HTTP satisfactoria. Netlify Forms debe estar habilitado en el sitio para que las capturas aparezcan en el panel. WhatsApp es una vía explícita posterior, no una afirmación de que se envió correo.
+
+Las notificaciones deben configurarse en Netlify para enviar las entradas verificadas a `info@imagen-glocal.com`. Los formularios incluyen un campo `email` y asuntos versionados para facilitar respuesta y clasificación. El procedimiento operativo está en `docs/netlify-email.md`.
 
 ## Chatbot
 
@@ -110,7 +115,7 @@ El sitio incluye:
 - rutas legales `/privacy` y `/terms`;
 - encabezados de seguridad definidos en `next.config.js` para que también alcancen las respuestas del runtime de Next en Netlify.
 
-El canonical actual usa `https://imagenglocal.netlify.app`. Debe cambiarse en `src/lib/seo.ts`, `robots.ts` y `sitemap.ts` si se conecta un dominio de producción diferente. La localización inglesa todavía es del lado del cliente: una mejora futura es crear rutas indexables `/es` y `/en` con metadata y `hreflang` propios.
+El canonical usa `NEXT_PUBLIC_SITE_URL` y recurre a `https://imagenglocal.netlify.app` cuando la variable no está configurada. Al conectar el dominio definitivo basta con definir esa variable en Netlify. La localización inglesa todavía es del lado del cliente: una mejora futura es crear rutas indexables `/es` y `/en` con metadata y `hreflang` propios.
 
 ## Accesibilidad y rendimiento
 

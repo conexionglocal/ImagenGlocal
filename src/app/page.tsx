@@ -11,6 +11,7 @@ import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { ScrollProgress } from "@/components/parallax-container"
 import { BrandDnaSection } from "@/components/brand-dna-section"
+import { PortfolioPreview } from "@/components/portfolio-preview"
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
         <InnovationSection />
         <PlansSection />
         <AdditionalServicesSection />
+        <PortfolioPreview />
         <ProcessSection />
         <ContactSection />
       </main>

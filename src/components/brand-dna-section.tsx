@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { useLanguage } from "@/contexts/language-context"
 import { submitNetlifyForm } from "@/lib/forms"
 
-const emptyForm = { url: "", name: "", contact: "" }
+const emptyForm = { url: "", name: "", email: "", phone: "" }
 
 export function BrandDnaSection() {
   const { t, language } = useLanguage()
@@ -23,7 +23,11 @@ export function BrandDnaSection() {
     setError("")
 
     try {
-      await submitNetlifyForm("brand-dna", { ...formData, language })
+      await submitNetlifyForm("brand-dna", {
+        ...formData,
+        language,
+        subject: "Nueva solicitud — Diagnóstico de ADN de Marca",
+      })
       setStatus("success")
     } catch {
       setStatus("idle")
@@ -58,6 +62,7 @@ export function BrandDnaSection() {
                 {status === "idle" && (
                   <motion.form key="form" name="brand-dna" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, y: -20 }} onSubmit={handleSubmit} className="space-y-6">
                     <input type="hidden" name="form-name" value="brand-dna" />
+                    <input type="hidden" name="subject" data-remove-prefix value="Nueva solicitud — Diagnóstico de ADN de Marca" />
                     <p className="hidden"><label htmlFor="brand-dna-bot-field">Do not fill this out</label><input id="brand-dna-bot-field" name="bot-field" tabIndex={-1} autoComplete="off" /></p>
                     <div>
                       <label htmlFor="brand-dna-url" className="block text-sm font-medium mb-2 text-foreground/80">{t.brandDna.formUrlLabel}</label>
@@ -68,7 +73,8 @@ export function BrandDnaSection() {
                     </div>
                     <div className="grid md:grid-cols-2 gap-6">
                       <div><label htmlFor="brand-dna-name" className="block text-sm font-medium mb-2 text-foreground/80">{t.brandDna.formNameLabel}</label><Input id="brand-dna-name" name="name" placeholder={t.brandDna.formNamePlaceholder} required value={formData.name} onChange={handleChange} autoComplete="name" className="py-5 bg-background/50" /></div>
-                      <div><label htmlFor="brand-dna-contact" className="block text-sm font-medium mb-2 text-foreground/80">{t.brandDna.formContactLabel}</label><Input id="brand-dna-contact" name="contact" placeholder={t.brandDna.formContactPlaceholder} required value={formData.contact} onChange={handleChange} className="py-5 bg-background/50" /></div>
+                      <div><label htmlFor="brand-dna-email" className="block text-sm font-medium mb-2 text-foreground/80">{t.contact.emailLabel}</label><Input id="brand-dna-email" name="email" type="email" placeholder={t.contact.emailPlaceholder} required value={formData.email} onChange={handleChange} autoComplete="email" className="py-5 bg-background/50" /></div>
+                      <div className="md:col-span-2"><label htmlFor="brand-dna-phone" className="block text-sm font-medium mb-2 text-foreground/80">{t.contact.phoneLabel}</label><Input id="brand-dna-phone" name="phone" type="tel" placeholder={t.contact.phonePlaceholder} value={formData.phone} onChange={handleChange} autoComplete="tel" className="py-5 bg-background/50" /></div>
                     </div>
                     {error && <div className="flex items-start gap-2 text-sm text-destructive" role="alert"><AlertCircle className="w-5 h-5 shrink-0" aria-hidden="true" /><span>{error}</span></div>}
                     <Button type="submit" className="w-full py-6 text-lg bg-gradient-primary hover:opacity-90 text-white group mt-4 shadow-lg shadow-primary/25">{t.brandDna.submitButton}<ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" /></Button>

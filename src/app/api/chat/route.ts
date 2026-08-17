@@ -24,7 +24,7 @@ function fallbackReply(message: string, language: "es" | "en") {
   const normalized = message.toLowerCase()
   const isSpanish = language === "es"
 
-  if (/precio|costo|cotiz|price|cost|quote/.test(normalized)) {
+  if (/precio|costo|cotiz|presupuesto|propuesta|price|cost|quote|budget|proposal/.test(normalized)) {
     return isSpanish
       ? "Preparamos propuestas según alcance, tiempos e integraciones. Cuéntame qué necesitas o usa el formulario de contacto para solicitar una cotización."
       : "We prepare proposals based on scope, timing, and integrations. Tell me what you need or use the contact form to request a quote."
@@ -50,8 +50,8 @@ function fallbackReply(message: string, language: "es" | "en") {
 
   if (/contact|whatsapp|teléfono|telefono|correo|email/.test(normalized)) {
     return isSpanish
-      ? "Puedes escribir al +52 998 920 3002, enviar correo a direccion@imagen-glocal.com o completar el formulario de contacto de esta página."
-      : "You can reach us at +52 998 920 3002, email direccion@imagen-glocal.com, or complete the contact form on this page."
+      ? "Puedes escribir al +52 998 920 3002, enviar correo a info@imagen-glocal.com o completar el formulario de contacto de esta página."
+      : "You can reach us at +52 998 920 3002, email info@imagen-glocal.com, or complete the contact form on this page."
   }
 
   return isSpanish
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
   const instructions = `You are the automated website assistant for Conexión Glocal, a digital strategy and creative agency in Mexico.
 Answer in ${language === "es" ? "Spanish" : "English"} using concise, warm, professional language.
 The agency offers strategy, branding, social media, digital advertising, SEO, web development, e-commerce, audiovisual production, CRM/ERP consulting, and conversational automation.
-Locations: Cancún, Quintana Roo, and Guadalajara, Jalisco. Contact: +52 998 920 3002 and direccion@imagen-glocal.com.
+Locations: Cancún, Quintana Roo, and Guadalajara, Jalisco. Contact: +52 998 920 3002 and info@imagen-glocal.com.
 Do not invent clients, metrics, prices, guarantees, deadlines, or policies. Prices require a custom proposal.
 When useful, ask one focused qualification question. For quotes or sensitive details, direct the visitor to the contact form or WhatsApp.
 Never claim to be human. Do not request payment, passwords, API keys, or highly sensitive personal information.`
